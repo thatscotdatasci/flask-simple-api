@@ -17,8 +17,8 @@ project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 dictConfig(json.load(open(os.path.join(os.path.dirname(project_dir), 'logging.json'))))
 application = Flask(__name__)
 
-database_name = 'flaskapi.sqlite'
-database_file = f'sqlite:///{os.path.join(project_dir, database_name)}'
+database_name = 'flaskapi'
+database_file = f'mysql+mysqlconnector://{open(os.path.join(os.path.dirname(project_dir), "flaskapi-mysql-rds.secret")).read()}/{database_name}'
 database = Database(database_file, application)
 
 
