@@ -8,17 +8,18 @@ from flask import Flask, request, jsonify
 
 from flaskapi.models.user import User
 from flaskapi.models import utils as model_utils
+from flaskapi.helpers import utils
 from flaskapi.helpers.database import Database
 from flaskapi.helpers.exceptions import MissingArguments
 
-logger = logging.getLogger('flaskapi')
+args = utils.parse_arguments()
 
-project_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-dictConfig(json.load(open(os.path.join(os.path.dirname(project_dir), 'logging.json'))))
+logger = logging.getLogger('flaskapi')
+dictConfig(json.load(open(args.log_conf)))
+
 application = Flask(__name__)
 
-database_name = 'flaskapi'
-database_file = f'mysql+mysqlconnector://{open(os.path.join(os.path.dirname(project_dir), "flaskapi-mysql-rds.secret")).read()}/{database_name}'
+database_file = f'mysql+mysqlconnector://{open(args.db_string).read()}'
 database = Database(database_file, application)
 
 
