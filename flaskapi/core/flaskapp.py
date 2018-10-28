@@ -62,6 +62,11 @@ def user_get(user_id):
     return jsonify({})
 
 
+@application.route('/healthcheck', methods=['GET'])
+def healthcheck():
+    return jsonify(alive=True)
+
+
 @application.errorhandler(MissingArguments)
 def handle_missing_arguments(error):
     response = jsonify(error.to_dict())
