@@ -11,11 +11,11 @@ class User(Base):
     added = Column(DateTime)
     edited = Column(DateTime)
 
-    def __init__(self, first_name=None, surname=None, added=None, updated=None):
+    def __init__(self, first_name=None, surname=None, added=None, edited=None):
         self.first_name = first_name
         self.surname = surname
         self.added = added
-        self.updated = updated
+        self.edited = edited
 
     def __repr__(self):
         return {'id': self.id}

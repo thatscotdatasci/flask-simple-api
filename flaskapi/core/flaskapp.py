@@ -42,7 +42,7 @@ def user_post():
         first_name=first_name,
         surname=surname,
         added=datetime.datetime.now(),
-        updated=datetime.datetime.now()
+        edited=datetime.datetime.now()
     )
 
     application.logger.debug('Adding new user to db')
