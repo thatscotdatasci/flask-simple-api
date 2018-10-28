@@ -9,7 +9,8 @@ WORKDIR /app
 
 COPY --chown=appuser:appuser requirements.txt .
 
-RUN pip install --no-cache-dir -r requirements.txt
+RUN python -m pip install -U pip \
+    && pip install --no-cache-dir -r requirements.txt
 
 COPY --chown=appuser:appuser . .
 
