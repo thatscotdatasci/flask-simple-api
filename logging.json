@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "formatters": {
+    "default": {
+      "format": "%(asctime)s %(name)-15s %(module)-15s %(funcName)-25s %(levelname)-8s %(message)s"
+    },
+    "gunicorn_access": {
+      "format": "%(asctime)s %(name)-15s %(module)-15s %(funcName)-25s %(levelname)-8s %(h)s %(l)s %(u)s %(t)s \"%(r)s\" %(s)s %(b)s \"%(f)s\" \"%(a)s\""
+    }
+  },
+  "handlers": {
+    "console": {
+      "class": "logging.StreamHandler",
+      "formatter": "default"
+    },
+    "local": {
+      "class":"logging.handlers.RotatingFileHandler",
+      "filename":"flaskapi.log",
+      "formatter":"default",
+      "maxBytes":31457280,
+      "backupCount":20
+    },
+    "flask": {
+      "class":"logging.handlers.RotatingFileHandler",
+      "filename":"flask.log",
+      "formatter":"default",
+      "maxBytes":31457280,
+      "backupCount":20
+    },
+    "gunicorn_error_file": {
+      "class": "logging.handlers.RotatingFileHandler",
+      "filename": "gunicorn_error.log",
+      "formatter": "default",
+      "maxBytes":31457280,
+      "backupCount":20
+    },
+    "gunicorn_access_file": {
+      "class": "logging.handlers.RotatingFileHandler",
+      "filename": "gunicorn_access.log",
+      "formatter": "default",
+      "maxBytes":31457280,
+      "backupCount":20
+    }
+  },
+  "loggers": {
+    "root": {
+      "handlers": [
+        "console",
+        "local"
+      ]
+    },
+    "flaskapi": {
+      "level": "DEBUG",
+      "handlers": [
+        "console",
+        "local"
+      ],
+      "propagate": "True"
+    },
+    "werkzeug": {
+      "level": "DEBUG",
+      "handlers": [
+        "console",
+        "flask"
+      ],
+      "propagate": "True"
+    },
+    "gunicorn.error": {
+      "level": "DEBUG",
+      "handlers": ["console", "gunicorn_error_file"],
+      "qualname": "gunicorn.error",
+      "propagate": "True"
+    },
+    "gunicorn.access": {
+      "level": "DEBUG",
+      "handlers": ["console", "gunicorn_access_file"],
+      "qualname": "gunicorn.access",
+      "propagate": "True"
+    }
+  }
+}
